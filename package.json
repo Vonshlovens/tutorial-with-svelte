@@ -13,6 +13,7 @@
 		"serve": "deno run build && deno run server:start"
 	},
 	"dependencies": {
+		"set-cookie-parser": "^2.7.1",
 		"svelte-adapter-azure-swa": "^0.22.0"
 	},
 	"devDependencies": {
