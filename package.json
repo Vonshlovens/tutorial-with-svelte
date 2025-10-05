@@ -3,11 +3,17 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"engines": {
+		"node": "20.x"
+	},
 	"scripts": {
 		"dev": "deno run -A npm:vite & deno run server:start",
 		"server:start": "deno run -A --watch ./api/main.ts",
 		"build": "deno run -A npm:vite build",
 		"serve": "deno run build && deno run server:start"
+	},
+	"dependencies": {
+		"svelte-adapter-azure-swa": "^0.22.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.0",
