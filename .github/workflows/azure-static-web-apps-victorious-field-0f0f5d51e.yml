@@ -53,7 +53,11 @@ jobs:
           output_location: ""                  # Already built, no output needed
           skip_app_build: true                 # Skip Oryx build, use pre-built output
           skip_api_build: true                 # Skip API build, dependencies already installed
+          api_build_command: "npm install --production"
           ###### End of Repository/Build Configurations ######
+        env:
+          API_LANGUAGE: "node"
+          API_LANGUAGE_VERSION: "20"
 
           
           
