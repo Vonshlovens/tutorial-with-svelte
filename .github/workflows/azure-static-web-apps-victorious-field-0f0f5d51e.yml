@@ -25,6 +25,15 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Install dependencies
+        run: deno install
+
+      - name: Build with Deno
+        run: deno run -A npm:vite build
+
+      - name: Install server dependencies
+        run: cd build/server && npm install --omit=dev
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -34,18 +43,12 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/"                    # your sveltekit root
+          app_location: "build/static"         # Pre-built static files
           api_location: "build/server"         # SSR Azure function dir
-          output_location: "build/static"
-          # Prevent SWA action from letting Oryx auto-build functions (the fragile bit)
-          skip_api_build: true
+          output_location: ""                  # Already built, no output needed
+          skip_app_build: true                 # Skip Oryx build, use pre-built output
+          skip_api_build: true                 # Skip API build, dependencies already installed
           ###### End of Repository/Build Configurations ######
-        env:
-          # Ensure both frontend + API get built before deploy
-          CUSTOM_BUILD_COMMAND: |
-            deno install
-            deno run -A npm:vite build
-            deno install --prefix ./build/server
 
           
           
